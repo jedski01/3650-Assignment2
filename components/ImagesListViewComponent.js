@@ -16,28 +16,38 @@ export default class ImagesListViewComponent extends Component {
             imageDataSource: images    
         }
 
-        this.state.imageDataSource.cloneWithRows(this.props.images)
+        // this.state.imageDataSource.cloneWithRows(this.props.images)
 
         this.renderThumbnail = this.renderThumbnail.bind(this)
 
     } 
 
+    componentDidMount() {
+
+        this.setState({
+            imageDataSource: this.state.imageDataSource.cloneWithRows(this.props.images)
+        })
+    }
+
     pressRow(rowID) {
         console.log('Thumbnail ' + rowID + ' has been pressed')
+        this.props.selectImage(rowID);
     }
     
     renderThumbnail(image, sectionID, rowID, highlightRow) {
-        {console.log('hello')}
-        <TouchableHighlight>
-            <Image source={image} style={{height: 100, width: 100}}/>
-        </TouchableHighlight>
-    }
-
+        return(
+            <TouchableHighlight style={styles.imageContainer} onPress={
+                ()=> {this.pressRow(rowID)}
+            }>
+                <Image source={image} style={styles.image} resizeMode={'contain'}/> 
+            </TouchableHighlight>   
+        )
+    } 
+ 
     render() {
         return (
             <View style={styles.container}>
-                <ListView
-                style={styles.container}
+                <ListView 
                 dataSource = {this.state.imageDataSource}
                 renderRow = {this.renderThumbnail}
                 horizontal = {true} 
@@ -46,12 +56,26 @@ export default class ImagesListViewComponent extends Component {
             
         );
     }
-} 
+}   
 
 
 const styles = StyleSheet.create({
     container: {
         flex: 4, 
-        backgroundColor: 'blue'  
+        backgroundColor: '#E1EBED',   
+        justifyContent: 'center', 
+        alignItems: 'center'
+    },
+    imageStrip: {
+        flex: 1,
+        justifyContent: 'center'
+    },
+    image: {
+        width: 100, 
+        height: 100     
+    },
+    imageContainer: {
+        justifyContent: 'center',
+        padding: 2
     }
 })
