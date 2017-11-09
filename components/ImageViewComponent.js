@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 
 // create a component
 export default class ImageViewComponent extends Component {
@@ -61,8 +61,8 @@ export default class ImageViewComponent extends Component {
         return (  
             <View onLayout={(event)=> {this.measureDimension(event)}} style={styles.container}>
                     <Image source={this.state.image} 
-                                    style={{maxHeight: maxHeight, maxWidth: maxWidth, transform: [{rotateZ: this.state.imageRotation+'deg'}]}}    
-                                    resizeMode={'contain'}/>    
+                           style={{maxHeight: maxHeight, maxWidth: maxWidth, transform: [{rotateZ: this.state.imageRotation+'deg'}]}}    
+                           resizeMode={'contain'}/>    
             </View>    
         ); 
     } 

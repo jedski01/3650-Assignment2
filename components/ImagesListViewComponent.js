@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ListView, TouchableHighlight, Image} from 'react-native';
+import { View, StyleSheet, ListView, TouchableHighlight, Image} from 'react-native';
 import PropTypes from 'prop-types'
 
 // create a component
