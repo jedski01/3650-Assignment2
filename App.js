@@ -11,7 +11,10 @@ const images = [
   require('./assets/album/image3.jpg'),
   require('./assets/album/image4.jpg'),
   require('./assets/album/image5.jpg'),
-  require('./assets/album/image6.jpg')
+  require('./assets/album/image6.jpg'),
+  require('./assets/album/image7.jpg'),
+  require('./assets/album/image8.jpg'),
+  require('./assets/album/image9.jpg')
 ]
 
 export default class App extends React.Component {
