@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 
 // create a component
 export default class ImageViewComponent extends Component {
@@ -68,6 +68,7 @@ export default class ImageViewComponent extends Component {
                            style={{height: maxHeight, width: maxWidth, transform: [{rotateZ: this.state.imageRotation+'deg'}]}}      
                            resizeMode={'contain'}/>    
             </View>       
+
         ); 
     } 
 }
