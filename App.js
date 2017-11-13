@@ -4,57 +4,62 @@ import { StyleSheet, Text, View } from 'react-native';
 import ImageControlComponent from './components/ImageControlComponent'
 import ImagesListViewComponent from './components/ImagesListViewComponent'
 import ImageViewComponent from './components/ImageViewComponent'
- 
-const images = [ 
-  require('./assets/album/image1.png'),
-  require('./assets/album/image2.jpg'),
-  require('./assets/album/image3.jpg'),
-  require('./assets/album/image4.jpg'),
-  require('./assets/album/image5.jpg'),
-  require('./assets/album/image6.jpg'),
-  require('./assets/album/image7.jpg'),
-  require('./assets/album/image8.jpg'),
-  require('./assets/album/image9.jpg')
-]
 
+ 
 export default class App extends React.Component {
   
   constructor() {
     super()
-    
-   this.setSelectedImage = this.setSelectedImage.bind(this)
-    this.rotate = this.rotate.bind(this)
-    this.reset = this.reset.bind(this)
-  }
+  
+  this.setSelectedImage = this.setSelectedImage.bind(this)
+  this.rotate = this.rotate.bind(this)
+  this.reset = this.reset.bind(this)
+  this.addImage = this.addImage.bind(this)
+  this.deleteImage = this.deleteImage.bind(this)
 
-  setSelectedImage(index) { 
-    
-    this.reset()
-    console.log('changed selected to ' + index) 
-    this.imageView.changeImage(images[index] )
-    
   } 
 
+  setSelectedImage(image_url, index) { 
+    
+    this.reset() 
+    console.log("set selected image to " + image_url) 
+    this.imageView.changeImage(image_url)
+    this.imageControl.setSelectedIndex(index)
+  } 
+  
   rotate(deg) {  
     this.imageView.rotate(deg) 
   }
-
+   
   reset() {
     this.imageView.reset()
   }
- 
+
+  addImage(image_url) { 
+    this.imageList.addImage(image_url) 
+  } 
+
+  deleteImage(index) {
+    this.imageList.removeImage(index)
+  }
+   
   render() {
     return (
       <View style={styles.container}>
         <ImageViewComponent ref={(_imageView) => {this.imageView = _imageView}}/>   
-        <ImageControlComponent rotate={this.rotate} reset={this.reset}/>
-        <ImagesListViewComponent images={images} selectImage={this.setSelectedImage}/>  
+
+        <ImageControlComponent ref={(_imageControl)=> {this.imageControl = _imageControl }} 
+                              rotate={this.rotate} reset={this.reset}  
+                              addImage={this.addImage} deleteImage={this.deleteImage} selectImage={this.setSelectedImage}/>
+        
+        <ImagesListViewComponent ref={(_imageList) => {this.imageList = _imageList}} 
+                                 selectImage={this.setSelectedImage}/>  
       </View> 
     );
   }
 }
 
-const styles = StyleSheet.create({ 
+const styles = StyleSheet.create({  
   container: {
     flex: 1,
     backgroundColor: '#fff',

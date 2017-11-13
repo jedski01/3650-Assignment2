@@ -25,6 +25,7 @@ export default class ImageViewComponent extends Component {
     }
 
     changeImage(image) {
+        console.log('new image is ' + image) 
         this.setState({
             image: image
         });
@@ -44,8 +45,8 @@ export default class ImageViewComponent extends Component {
             imageRotation: 0
         }, ()=> {
             console.log('reset rotation')
-        })
-    }
+        }) 
+    } 
     
     render() {
         console.log('new image'); 
@@ -54,25 +55,28 @@ export default class ImageViewComponent extends Component {
         let maxWidth = this.state.width;
 
         if(this.state.imageRotation % 90 === 0 && this.state.imageRotation % 180 !== 0) {
-            console.log('switch orientation')
-            maxHeight = this.state.width;
-            maxWidth = this.state.height
+            console.log('switch orientation') 
+            maxHeight = this.state.width;  
+            maxWidth = this.state.height 
         }  
+ 
+        let {image} = this.state
         return (  
+            
             <View onLayout={(event)=> {this.measureDimension(event)}} style={styles.container}>
-                    <Image source={this.state.image} 
-                                    style={{maxHeight: maxHeight, maxWidth: maxWidth, transform: [{rotateZ: this.state.imageRotation+'deg'}]}}    
-                                    resizeMode={'contain'}/>    
-            </View>    
+                    <Image source={{isStatic: true, uri: image}} 
+                           style={{height: maxHeight, width: maxWidth, transform: [{rotateZ: this.state.imageRotation+'deg'}]}}      
+                           resizeMode={'contain'}/>    
+            </View>       
         ); 
     } 
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ 
     container: {
         flex: 16,
-        backgroundColor: 'black',
-        alignItems: 'center',
+        backgroundColor: 'black', 
+        alignItems: 'center', 
         justifyContent: 'center'
     }
 })

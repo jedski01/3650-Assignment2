@@ -8,49 +8,71 @@ export default class ImagesListViewComponent extends Component {
     constructor(props) {
         super(props);
 
-        const images = new ListView.DataSource({
+        const imagesDS = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 != r2
         })
 
         this.state = {
-            imageDataSource: images    
+            imageDataSource: imagesDS,
+            images: []    
         }
 
-        // this.state.imageDataSource.cloneWithRows(this.props.images)
 
         this.renderThumbnail = this.renderThumbnail.bind(this)
 
     } 
 
-    componentDidMount() {
+   addImage(image_url) {
+
+        console.log("adding new image")
+        this.setState({
+            images: [...this.state.images, image_url]
+        }, ()=> {
+            this.setState({
+                imageDataSource: this.state.imageDataSource.cloneWithRows(this.state.images) 
+            })
+        })
+    } 
+
+    removeImage(index) {
+
+        let newList = [...this.state.images]
+        newList.splice(index, 1)
 
         this.setState({
-            imageDataSource: this.state.imageDataSource.cloneWithRows(this.props.images)
+            images: [...newList]
+        }, ()=> {
+            this.setState({
+                imageDataSource: this.state.imageDataSource.cloneWithRows(this.state.images) 
+            })
         })
     }
-
+    
+ 
     pressRow(rowID) {
         console.log('Thumbnail ' + rowID + ' has been pressed')
-        this.props.selectImage(rowID);
+        this.props.selectImage(this.state.images[rowID], rowID);
     }
     
     renderThumbnail(image, sectionID, rowID, highlightRow) {
         return(
             <TouchableHighlight style={styles.imageContainer} onPress={
                 ()=> {this.pressRow(rowID)}
-            }>
-                <Image source={image} style={styles.image} resizeMode={'contain'}/> 
+            }> 
+                
+                <Image source={{uri : image}} style={styles.image} resizeMode={'contain'}/> 
             </TouchableHighlight>   
-        )
-    } 
- 
-    render() {
-        return (
+        ) 
+    }   
+  
+    render() { 
+        return ( 
             <View style={styles.container}>
                 <ListView 
                 dataSource = {this.state.imageDataSource}
                 renderRow = {this.renderThumbnail}
                 horizontal = {true} 
+                enableEmptySections = {true}
                 />
             </View> 
             
