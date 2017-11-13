@@ -34,11 +34,11 @@ export default class ImageControlComponent extends Component {
     }
 
     _confirmDelete() {
-
+ 
         if(this.state.selectedIndex == -1){
-            Alert.alert('Remove from slideshow', 'No image is selected')
+            Alert.alert('Remove from gallery', 'No image selected')
         } else {
-            Alert.alert('Remove from slideshow', 'Are you sure you want to remove this image from slideshow', [
+            Alert.alert('Remove from gallery', 'Are you sure you want to remove this image from slideshow', [
                 {text: 'Cancel', onPress: ()=>{console.log('cancelled')}},
                 {text: 'OK', onPress: ()=> {this.deleteImage()}}
             ]);

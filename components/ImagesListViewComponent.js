@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, StyleSheet, ListView, TouchableHighlight, Image} from 'react-native';
+import { View, StyleSheet, ListView, TouchableHighlight, Image, Text} from 'react-native';
 import PropTypes from 'prop-types'
 
 // create a component
@@ -68,12 +68,19 @@ export default class ImagesListViewComponent extends Component {
     render() { 
         return ( 
             <View style={styles.container}>
-                <ListView 
-                dataSource = {this.state.imageDataSource}
-                renderRow = {this.renderThumbnail}
-                horizontal = {true} 
-                enableEmptySections = {true}
-                />
+                {this.state.images.length == 0 && 
+                    <Text>No images in Gallery. Click Add to add images.</Text>  
+                }
+
+                {this.state.images.length != 0 && 
+                    <ListView 
+                    dataSource = {this.state.imageDataSource}
+                    renderRow = {this.renderThumbnail}
+                    horizontal = {true} 
+                    enableEmptySections = {true}
+                    />
+                }
+                
             </View> 
             
         );

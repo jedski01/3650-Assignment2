@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, Text } from 'react-native';
 
 // create a component
 export default class ImageViewComponent extends Component {
@@ -64,10 +64,18 @@ export default class ImageViewComponent extends Component {
         return (  
             
             <View onLayout={(event)=> {this.measureDimension(event)}} style={styles.container}>
-                    <Image source={{isStatic: true, uri: image}} 
-                           style={{height: maxHeight, width: maxWidth, transform: [{rotateZ: this.state.imageRotation+'deg'}]}}      
-                           resizeMode={'contain'}/>    
-            </View>       
+                    {
+                        this.state.image === null && 
+                        <Text style={{color: 'white'}}>No image selected. Select image in Gallery</Text>
+                    }
+                    {
+                        this.state.selectedIndex !== null &&
+                        <Image source={{isStatic: true, uri: image}} 
+                        style={{height: maxHeight, width: maxWidth, transform: [{rotateZ: this.state.imageRotation+'deg'}]}}      
+                        resizeMode={'contain'}/>
+                    }
+                        
+            </View>        
 
         ); 
     } 
